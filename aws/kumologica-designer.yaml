@@ -1,0 +1,102 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+
+  Teplate to provision policy required by kumologica designer to deploy and interact with aws.
+  KumologicaDesignerPolicy - policy allows deployment of kumologica flow into 
+  aws environment as well as retrival of information of depending services that flow interacts with.
+
+Outputs:
+  KumologicaDesignerPolicyArn:
+    Description: The arn of Kumologica Designers policy that allows deployment of the flow into aws and access of services information
+    Value: !Ref KumologicaDesignerPolicy
+
+Resources:
+  KumologicaDesignerPolicy:
+    Type: "AWS::IAM::ManagedPolicy"
+    Properties:
+      ManagedPolicyName: "KumologicaDesignerPolicy"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:        
+              - "iam:GetRole"
+              - "iam:PassRole"
+              - "iam:DeleteRolePolicy"
+              - "iam:PutRolePolicy"
+              - "iam:GetRolePolicy"
+              - "iam:CreateRole"
+              - "iam:DeleteRole"
+            Resource: "arn:aws:iam::*:role/Kumologica*"
+          - Effect: "Allow"
+            Action:        
+              - "s3:PutObject"
+              - "s3:GetObject"
+              - "s3:CreateBucket"
+            Resource: "arn:aws:s3:::*"
+          - Effect: "Allow"
+            Action:        
+              - "s3:ListBucket"
+              - "s3:ListAllMyBuckets"
+            Resource: "arn:aws:s3:::*"
+          - Effect: "Allow"
+            Action:        
+              - "logs:DescribeLogStreams"
+            Resource: "arn:aws:logs:*:*:log-group:kumologica*"
+          - Effect: "Allow"
+            Action:        
+              - "cloudformation:DescribeStackEvents"
+              - "cloudformation:DescribeStacks"
+              - "cloudformation:CreateChangeSet"
+              - "cloudformation:CreateStack"
+              - "cloudformation:UpdateStack"
+            Resource: "arn:aws:cloudformation:*:*:stack/kumologica*/*"
+          - Effect: "Allow"
+            Action:        
+              - "lambda:CreateFunction"
+              - "lambda:GetFunction"
+              - "lambda:UpdateFunctionCode"
+              - "lambda:UpdateFunctionConfiguration"
+              - "lambda:GetFunctionConfiguration"
+              - "lambda:AddPermission"
+              - "lambda:RemovePermission"
+            Resource: "arn:aws:lambda:*:*:function:kumologica*"
+          - Effect: Allow
+            Action:
+              - "apigateway:GET"
+              - "apigateway:POST"
+              - "apigateway:PUT"
+              - "apigateway:DELETE"
+            Resource:  
+              - "arn:aws:apigateway:*::/restapis"             
+              - "arn:aws:apigateway:*::/restapis/*"
+          - Effect: Allow
+            Action:
+              - "dynamodb:ListStreams"
+            Resource: "arn:aws:dynamodb:*:*:table/*/stream/*" 
+          - Effect: Allow
+            Action: 
+              - "sns:ListTopics"
+            Resource: "arn:aws:sns:*:*:*" 
+          - Effect: Allow
+            Action:
+              - "events:ListRules"
+            Resource: "arn:aws:events:*:*:rule/*" 
+          - Effect: Allow
+            Action:
+              - "iot:ListTopicRules"
+            Resource: "*" 
+          - Effect: Allow
+            Action:
+              - "a4b:ListSkills"
+            Resource: "arn:aws:a4b:*:*:*" 
+          - Effect: Allow
+            Action:
+              - "elasticloadbalancing:DescribeLoadBalancers"
+            Resource: "*"          
+          - Effect: Allow
+            Action:
+              - "sqs:ListQueues"
+              - "sqs:GetQueueAttributes"
+            Resource: "arn:aws:sqs:*:*:*"
