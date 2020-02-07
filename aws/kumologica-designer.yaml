@@ -34,12 +34,15 @@ Resources:
               - "s3:PutObject"
               - "s3:GetObject"
               - "s3:CreateBucket"
-            Resource: "arn:aws:s3:::*"
+              - "s3:DeleteObject"
+            Resource: 
+              - "arn:aws:s3:::kumologica-designer*/*"
+              - "arn:aws:s3:::kumologica-designer*"
           - Effect: "Allow"
             Action:        
               - "s3:ListBucket"
               - "s3:ListAllMyBuckets"
-            Resource: "arn:aws:s3:::*"
+            Resource: "*"
           - Effect: "Allow"
             Action:        
               - "logs:DescribeLogStreams"
@@ -78,7 +81,7 @@ Resources:
           - Effect: Allow
             Action: 
               - "sns:ListTopics"
-            Resource: "arn:aws:sns:*:*:*" 
+            Resource: "*" 
           - Effect: Allow
             Action:
               - "events:ListRules"
@@ -90,7 +93,7 @@ Resources:
           - Effect: Allow
             Action:
               - "a4b:ListSkills"
-            Resource: "arn:aws:a4b:*:*:*" 
+            Resource: "*" 
           - Effect: Allow
             Action:
               - "elasticloadbalancing:DescribeLoadBalancers"
@@ -99,4 +102,4 @@ Resources:
             Action:
               - "sqs:ListQueues"
               - "sqs:GetQueueAttributes"
-            Resource: "arn:aws:sqs:*:*:*"
+            Resource: "*"
