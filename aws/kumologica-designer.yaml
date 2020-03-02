@@ -5,6 +5,7 @@ Description: >
   Teplate to provision policy required by kumologica designer to deploy and interact with aws.
   KumologicaDesignerPolicy - policy allows deployment of kumologica flow into 
   aws environment as well as retrival of information of depending services that flow interacts with.
+  https://github.com/KumologicaHQ/kumologica-scripts
 
 Outputs:
   KumologicaDesignerPolicyArn:
@@ -28,7 +29,7 @@ Resources:
               - "iam:GetRolePolicy"
               - "iam:CreateRole"
               - "iam:DeleteRole"
-            Resource: "arn:aws:iam::*:role/Kumologica*"
+            Resource: "arn:aws:iam::*:role/kumologica*"
           - Effect: "Allow"
             Action:        
               - "s3:PutObject"
