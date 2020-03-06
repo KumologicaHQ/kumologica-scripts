@@ -21,6 +21,10 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: "Allow"
+            Action:
+              - "iam:ListRoles"
+            Resource: "*"
+          - Effect: "Allow"
             Action:        
               - "iam:GetRole"
               - "iam:PassRole"
