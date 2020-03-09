@@ -22,12 +22,12 @@ Resources:
         Statement:
           - Effect: "Allow"
             Action:
+              - "iam:PassRole"
               - "iam:ListRoles"
             Resource: "*"
           - Effect: "Allow"
             Action:        
               - "iam:GetRole"
-              - "iam:PassRole"
               - "iam:DeleteRolePolicy"
               - "iam:PutRolePolicy"
               - "iam:GetRolePolicy"
@@ -69,6 +69,7 @@ Resources:
               - "lambda:GetFunctionConfiguration"
               - "lambda:AddPermission"
               - "lambda:RemovePermission"
+              - "lambda:PutFunctionConcurrency"
             Resource: "arn:aws:lambda:*:*:function:kumologica*"
           - Effect: Allow
             Action:
