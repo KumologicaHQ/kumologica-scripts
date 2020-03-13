@@ -2,15 +2,21 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
 
-  Teplate to provision policy required by kumologica designer to deploy and interact with aws.
+  Teplate to provision iam user group and iam policy required by kumologica designer 
+  to deploy and interact with aws.
   KumologicaDesignerPolicy - policy allows deployment of kumologica flow into 
-  aws environment as well as retrival of information of depending services that flow interacts with.
-  https://github.com/KumologicaHQ/kumologica-scripts
+    aws environment as well as retrival of information of depending services that flow interacts with.
+  KumologicaDesignersGroup - iam user group with KumologicaDesignerPolicy assigned. It is recommended to
+    assign this group to each kumologica designer aws iam user.
+  The source of this script is located in https://github.com/KumologicaHQ/kumologica-scripts
 
 Outputs:
   KumologicaDesignerPolicyArn:
     Description: The arn of Kumologica Designers policy that allows deployment of the flow into aws and access of services information
     Value: !Ref KumologicaDesignerPolicy
+  KumologicaDesignersGroupArn:
+    Description: The arn of Kumologica Designers user group
+    Value: !GetAtt KumologicaDesignersGroup.Arn
 
 Resources:
   KumologicaDesignerPolicy:
@@ -109,3 +115,9 @@ Resources:
               - "sqs:ListQueues"
               - "sqs:GetQueueAttributes"
             Resource: "*"
+  KumologicaDesignersGroup:
+    Type: AWS::IAM::Group
+    Properties: 
+      GroupName: "KumologicaDesignersGroup"
+      ManagedPolicyArns: 
+        - !Ref KumologicaDesignerPolicy

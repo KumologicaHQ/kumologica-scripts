@@ -1,15 +1,21 @@
 # kumologica-scripts
-Scripts required by kumologica designer and cli to interact with third party platforms (aws)
 
-The following scripts are present:
+Various scripts that support use of kumologica designer.
 
-## kumologica-designer.yaml
+The following scripts are present
 
-Script creates cloudformation stack that contains named policy that needs to be assigned to user.
+## aws 
 
-To create stack run following command:
+Folder contain scripts required by kumologica designer and cli to interact with aws services.
+
+### aws/kumologica-designer.yaml
+
+Script creates cloudformation stack that contains named iam policy and iam user group that needs to be assigned to user.
+
+To create stack, make sure to change directory to aws and run following command:
 
 ```bash
+
 aws cloudformation create-stack \
     --stack-name kumologica-designer-stack  \
     --template-body file://kumologica-designer.yaml \
@@ -25,4 +31,4 @@ aws cloudformation update-stack \
     --capabilities CAPABILITY_AUTO_EXPAND CAPABILITY_NAMED_IAM
 ```
 
-The account the script runs must have cloudformation create and update stack permissions as well as create/update iam policy.
+The account the script runs must have cloudformation create and update stack permissions as well as create/update iam policy and iam user group.
