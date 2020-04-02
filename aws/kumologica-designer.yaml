@@ -97,6 +97,7 @@ Resources:
           - Effect: Allow
             Action:
               - "events:ListRules"
+              - "events:PutTargets"
             Resource: "arn:aws:events:*:*:rule/*" 
           - Effect: Allow
             Action:
