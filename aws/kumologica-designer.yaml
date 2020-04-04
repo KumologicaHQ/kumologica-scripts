@@ -54,6 +54,7 @@ Resources:
               - "s3:ListBucket"
               - "s3:ListAllMyBuckets"
               - "s3:GetBucketNotification"
+              - "s3:PutBucketNotification"
             Resource: "*"
           - Effect: "Allow"
             Action:        
