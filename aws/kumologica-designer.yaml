@@ -59,7 +59,8 @@ Resources:
           - Effect: "Allow"
             Action:        
               - "logs:DescribeLogStreams"
-            Resource: "arn:aws:logs:*:*:log-group:kumologica*"
+              - "logs:FilterLogEvents"
+            Resource: "arn:aws:logs:*:*:log-group:/aws/lambda/kumologica*"
           - Effect: "Allow"
             Action:        
               - "cloudformation:DescribeStackEvents"
