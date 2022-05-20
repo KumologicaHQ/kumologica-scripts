@@ -2,12 +2,15 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >
 
-  Teplate to provision iam user group and iam policy required by kumologica designer 
-  to deploy and interact with aws.
+  Template to provision iam user group and iam policy required by kumologica designer 
+  to deploy and interact with aws account.
+  
   KumologicaDesignerPolicy - policy allows deployment of kumologica flow into 
-    aws environment as well as retrival of information of depending services that flow interacts with.
+    aws environment as well as retrieval of information of depending services that flow interacts with.
+  
   KumologicaDesignersGroup - iam user group with KumologicaDesignerPolicy assigned. It is recommended to
-    assign this group to each kumologica designer aws iam user.
+    assign this group to each aws iam user who is using kumologica designer.
+
   The source of this script is located in https://github.com/KumologicaHQ/kumologica-scripts
 
 Outputs:
@@ -79,11 +82,13 @@ Resources:
               - "lambda:AddPermission"
               - "lambda:RemovePermission"
               - "lambda:PutFunctionConcurrency"
+              - "lambda:ListTags"
             Resource: "arn:aws:lambda:*:*:function:kumologica*"
           - Effect: Allow
             Action:
               - "apigateway:GET"
               - "apigateway:POST"
+              - "apigateway:PATCH"
               - "apigateway:PUT"
               - "apigateway:DELETE"
             Resource:  
